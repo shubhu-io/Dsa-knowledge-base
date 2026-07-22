@@ -1,0 +1,52 @@
+# Compiled binaries
+*.exe
+*.o
+*.obj
+*.out
+*.class
+*.jar
+*.war
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# Node.js
+node_modules/
+npm-debug.log*
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Environment variables
+.env
+.env.local
+
+# Build outputs
+dist/
+build/
+*.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+#extra files
+.HOW_TO_MAKE_BEAUTIFUL_WEBSITE.md
+.GITHUB_UPLOAD_STEPS.md
