@@ -50,3 +50,4 @@ temp/
 #extra files
 .HOW_TO_MAKE_BEAUTIFUL_WEBSITE.md
 .GITHUB_UPLOAD_STEPS.md
+.this repo generator.py
