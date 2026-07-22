@@ -1,30 +1,39 @@
 <?php
-function binarySearch(array $arr, int $target): int {
+
+/*
+Problem: Binary Search
+Description: Find the index of a target value in a sorted array using binary search.
+
+Approach:
+- Compare target with middle element; if equal return index
+- If target < middle, search left half; else search right half
+- Repeat until found or subarray is empty
+
+Time Complexity: O(log n)
+Space Complexity: O(1)
+
+Example:
+Input:  nums = [1, 3, 5, 7, 9, 11], target = 7
+Output: 3
+*/
+
+function binarySearch(array $nums, int $target): int {
     $left = 0;
-    $right = count($arr) - 1;
-
+    $right = count($nums) - 1;
     while ($left <= $right) {
-        $mid = intdiv($left + $right, 2);
-
-        if ($arr[$mid] === $target) {
-            return $mid;
-        } elseif ($arr[$mid] < $target) {
-            $left = $mid + 1;
-        } else {
-            $right = $mid - 1;
-        }
+        $mid = $left + intdiv($right - $left, 2);
+        if ($nums[$mid] === $target) return $mid;
+        if ($nums[$mid] < $target) $left = $mid + 1;
+        else $right = $mid - 1;
     }
-
     return -1;
 }
 
-$arr = [2, 3, 4, 10, 40];
-$target = 10;
-$result = binarySearch($arr, $target);
+$nums = [1, 3, 5, 7, 9, 11];
+$target = 7;
+$result = binarySearch($nums, $target);
+echo "Index of $target: $result\n";
 
-if ($result === -1) {
-    echo "Element not found\n";
-} else {
-    echo "Element found at index $result\n";
-}
-?>
+$target = 4;
+$result = binarySearch($nums, $target);
+echo "Index of $target: $result\n";

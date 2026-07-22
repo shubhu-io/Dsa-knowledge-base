@@ -1,36 +1,35 @@
-fun mergeSort(arr: IntArray): IntArray {
-    if (arr.size <= 1) return arr
+/*
+ * Problem: Sort an array of integers using Merge Sort.
+ * Approach: Divide and conquer — recursively split array into halves, sort, then merge.
+ * Time Complexity: O(n log n)
+ * Space Complexity: O(n) auxiliary
+ * Example: Input: [38, 27, 43, 3, 9, 82, 10] -> Output: [3, 9, 10, 27, 38, 43, 82]
+ */
 
-    val mid = arr.size / 2
-    val left = mergeSort(arr.copyOfRange(0, mid))
-    val right = mergeSort(arr.copyOfRange(mid, arr.size))
-
-    return merge(left, right)
+fun mergeSort(arr: IntArray, left: Int, right: Int) {
+    if (left < right) {
+        val mid = left + (right - left) / 2
+        mergeSort(arr, left, mid)
+        mergeSort(arr, mid + 1, right)
+        merge(arr, left, mid, right)
+    }
 }
 
-fun merge(left: IntArray, right: IntArray): IntArray {
-    val result = mutableListOf<Int>()
-    var i = 0
-    var j = 0
-
-    while (i < left.size && j < right.size) {
-        if (left[i] <= right[j]) {
-            result.add(left[i])
-            i++
-        } else {
-            result.add(right[j])
-            j++
-        }
+private fun merge(arr: IntArray, left: Int, mid: Int, right: Int) {
+    val n1 = mid - left + 1
+    val n2 = right - mid
+    val L = arr.copyOfRange(left, left + n1)
+    val R = arr.copyOfRange(mid + 1, mid + 1 + n2)
+    var i = 0; var j = 0; var k = left
+    while (i < n1 && j < n2) {
+        arr[k++] = if (L[i] <= R[j]) L[i++] else R[j++]
     }
-
-    result.addAll(left.drop(i))
-    result.addAll(right.drop(j))
-
-    return result.toIntArray()
+    while (i < n1) arr[k++] = L[i++]
+    while (j < n2) arr[k++] = R[j++]
 }
 
 fun main() {
     val arr = intArrayOf(38, 27, 43, 3, 9, 82, 10)
-    println("Original: ${arr.toList()}")
-    println("Sorted: ${mergeSort(arr).toList()}")
+    mergeSort(arr, 0, arr.size - 1)
+    println(arr.joinToString(" "))
 }

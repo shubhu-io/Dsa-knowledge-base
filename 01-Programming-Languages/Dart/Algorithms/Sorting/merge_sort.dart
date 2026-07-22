@@ -1,35 +1,49 @@
-List<int> mergeSort(List<int> arr) {
-  if (arr.length <= 1) return arr;
+/*
+Problem: Merge Sort
+Description: Sort an array of integers using the merge sort algorithm.
+           Divide and conquer approach - split array, sort halves, merge.
 
-  final mid = arr.length ~/ 2;
-  final left = mergeSort(arr.sublist(0, mid));
-  final right = mergeSort(arr.sublist(mid));
+Approach:
+- Recursively divide array into two halves
+- Sort each half recursively
+- Merge the two sorted halves using two-pointer technique
 
-  return merge(left, right);
+Time Complexity: O(n log n)
+Space Complexity: O(n) for auxiliary arrays during merge
+
+Example:
+Input: [38, 27, 43, 3, 9, 82, 10]
+Output: [3, 9, 10, 27, 38, 43, 82]
+*/
+
+void mergeSort(List<int> arr, int left, int right) {
+  if (left >= right) return;
+  int mid = left + (right - left) ~/ 2;
+  mergeSort(arr, left, mid);
+  mergeSort(arr, mid + 1, right);
+  merge(arr, left, mid, right);
 }
 
-List<int> merge(List<int> left, List<int> right) {
-  final result = <int>[];
-  var i = 0, j = 0;
-
-  while (i < left.length && j < right.length) {
-    if (left[i] <= right[j]) {
-      result.add(left[i]);
+void merge(List<int> arr, int left, int mid, int right) {
+  List<int> leftArr = arr.sublist(left, mid + 1);
+  List<int> rightArr = arr.sublist(mid + 1, right + 1);
+  int i = 0, j = 0, k = left;
+  while (i < leftArr.length && j < rightArr.length) {
+    if (leftArr[i] <= rightArr[j]) {
+      arr[k] = leftArr[i];
       i++;
     } else {
-      result.add(right[j]);
+      arr[k] = rightArr[j];
       j++;
     }
+    k++;
   }
-
-  result.addAll(left.sublist(i));
-  result.addAll(right.sublist(j));
-
-  return result;
+  while (i < leftArr.length) { arr[k] = leftArr[i]; i++; k++; }
+  while (j < rightArr.length) { arr[k] = rightArr[j]; j++; k++; }
 }
 
 void main() {
-  final arr = [38, 27, 43, 3, 9, 82, 10];
-  print('Original: $arr');
-  print('Sorted: ${mergeSort(arr)}');
+  List<int> numbers = [38, 27, 43, 3, 9, 82, 10];
+  mergeSort(numbers, 0, numbers.length - 1);
+  print('Merge Sort: $numbers');
 }

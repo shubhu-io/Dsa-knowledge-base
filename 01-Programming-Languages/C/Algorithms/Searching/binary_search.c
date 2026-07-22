@@ -1,59 +1,39 @@
-/**
- * Problem: Binary Search
- * Given an array of integers nums which is sorted in ascending order,
- * and an integer target, write a function to search target in nums.
- * If target exists, then return its index. Otherwise, return -1.
- * You must write an algorithm with O(log n) runtime complexity.
- *
- * Approach:
- * - Use two pointers: left and right
- * - While left <= right:
- *   - Calculate mid = left + (right - left) / 2
- *   - If nums[mid] == target, return mid
- *   - If nums[mid] < target, search right half (left = mid + 1)
- *   - If nums[mid] > target, search left half (right = mid - 1)
- * - If not found, return -1
- * - Time: O(log n), Space: O(1)
- *
- * Example:
- * nums = [-1,0,3,5,9,12], target = 9 -> 4
- */
+/*
+Problem: Binary Search
+Given a sorted array of integers, find the index of a target value using binary search.
+
+Approach:
+- Divide and conquer, compare target with middle element
+
+Time Complexity: O(log n)
+Space Complexity: O(1)
+
+Example:
+Input: arr = [1, 3, 5, 7, 9, 11, 13], target = 7
+Output: 3
+*/
 
 #include <stdio.h>
 
-int search(int* nums, int numsSize, int target) {
-    int left = 0;
-    int right = numsSize - 1;
-
-    while (left <= right) {
-        // Prevents potential overflow
+int binary_search(int arr[], int n, int target)
+{
+    int left = 0, right = n - 1;
+    while (left <= right)
+    {
         int mid = left + (right - left) / 2;
-
-        if (nums[mid] == target) {
-            return mid;
-        } else if (nums[mid] < target) {
-            left = mid + 1;
-        } else {
-            right = mid - 1;
-        }
+        if (arr[mid] == target) return mid;
+        if (arr[mid] < target) left = mid + 1;
+        else right = mid - 1;
     }
-
-    return -1;  // Target not found
+    return -1;
 }
 
-int main() {
-    // Example usage
-    int nums[] = {-1, 0, 3, 5, 9, 12};
-    int target = 9;
-    int numsSize = sizeof(nums) / sizeof(nums[0]);
-
-    int result = search(nums, numsSize, target);
+int main()
+{
+    int arr[] = {1, 3, 5, 7, 9, 11, 13};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int target = 7;
+    int result = binary_search(arr, n, target);
     printf("Index of %d: %d\n", target, result);
-
-    // Test case 2: target not present
-    target = 2;
-    result = search(nums, numsSize, target);
-    printf("Index of %d: %d\n", target, result);
-
     return 0;
 }

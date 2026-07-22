@@ -1,39 +1,51 @@
 <?php
-function mergeSort(array &$arr): void {
-    $len = count($arr);
-    if ($len <= 1) {
-        return;
+
+/*
+Problem: Merge Sort
+Description: Sort an array using the divide-and-conquer merge sort algorithm.
+             Recursively split the array into halves, sort each half, then merge.
+
+Approach:
+- Divide array into two halves recursively until single elements
+- Merge sorted halves by comparing elements sequentially
+- Time: O(n log n), Space: O(n)
+
+Time Complexity: O(n log n)
+Space Complexity: O(n)
+
+Example:
+Input:  [38, 27, 43, 3, 9, 82, 10]
+Output: [3, 9, 10, 27, 38, 43, 82]
+*/
+
+function mergeSort(array &$arr, int $left, int $right): void {
+    if ($left < $right) {
+        $mid = intdiv($left + $right, 2);
+        mergeSort($arr, $left, $mid);
+        mergeSort($arr, $mid + 1, $right);
+        merge($arr, $left, $mid, $right);
     }
-
-    $mid = intdiv($len, 2);
-    $left = array_slice($arr, 0, $mid);
-    $right = array_slice($arr, $mid);
-
-    mergeSort($left);
-    mergeSort($right);
-
-    $arr = merge($left, $right);
 }
 
-function merge(array $left, array $right): array {
-    $result = [];
+function merge(array &$arr, int $left, int $mid, int $right): void {
+    $n1 = $mid - $left + 1;
+    $n2 = $right - $mid;
+    $L = array_slice($arr, $left, $n1);
+    $R = array_slice($arr, $mid + 1, $n2);
     $i = $j = 0;
-
-    while ($i < count($left) && $j < count($right)) {
-        if ($left[$i] <= $right[$j]) {
-            $result[] = $left[$i];
-            $i++;
+    $k = $left;
+    while ($i < $n1 && $j < $n2) {
+        if ($L[$i] <= $R[$j]) {
+            $arr[$k++] = $L[$i++];
         } else {
-            $result[] = $right[$j];
-            $j++;
+            $arr[$k++] = $R[$j++];
         }
     }
-
-    return array_merge($result, array_slice($left, $i), array_slice($right, $j));
+    while ($i < $n1) $arr[$k++] = $L[$i++];
+    while ($j < $n2) $arr[$k++] = $R[$j++];
 }
 
 $arr = [38, 27, 43, 3, 9, 82, 10];
 echo "Original: " . implode(", ", $arr) . "\n";
-mergeSort($arr);
-echo "Sorted: " . implode(", ", $arr) . "\n";
-?>
+mergeSort($arr, 0, count($arr) - 1);
+echo "Sorted:   " . implode(", ", $arr) . "\n";
