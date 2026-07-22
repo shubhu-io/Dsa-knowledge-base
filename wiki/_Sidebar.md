@@ -4,6 +4,15 @@
 = Fundamentals =
 [[Getting-Started]]
 [[Programming-Languages]]
+
+### Languages
+- [[Python]]
+- [[Java]]
+- [[C++]]
+- [[JavaScript]]
+- [[Go]]
+- [[Rust]]
+
 [[Data-Structures]]
 [[Algorithms]]
 [[Problem-Solving]]

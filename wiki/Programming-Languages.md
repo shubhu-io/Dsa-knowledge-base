@@ -231,7 +231,7 @@ and big data processing.
 ### Swift
 
 Modern language for Apple ecosystem development. Clean syntax with safety
-features and high performance接近C++.
+features and high performance approaching C++.
 
 - **Strengths**: Safe, fast, modern syntax, ARC memory management
 - **Weaknesses**: Apple ecosystem lock-in, evolving language

@@ -2,7 +2,7 @@
 
 ## Overview
 
-A curated collection of the best books, courses, platforms, and communities for computer science and software engineering learning. Updated recommendations for 2024-2025.
+A curated collection of the best books, courses, platforms, and communities for computer science and software engineering learning. Updated recommendations for 2025-2026.
 
 ## Key Concepts
 

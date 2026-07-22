@@ -79,13 +79,70 @@ class SMSNotification(Notification):
 
 Subtypes must be substitutable for their base types without breaking behavior.
 
+```python
+class Bird:
+    def move(self):
+        pass
+
+class FlyingBird(Bird):
+    def move(self):
+        return "flying"
+
+class Penguin(Bird):
+    def move(self):
+        return "swimming"  # Still a valid Bird, still moves
+```
+
 ### I - Interface Segregation Principle
 
 Clients should not be forced to depend on methods they do not use.
 
+```python
+class Workable:
+    def work(self):
+        pass
+
+class Eatable:
+    def eat(self):
+        pass
+
+class Robot(Workable):
+    def work(self):
+        return "Robot working"
+
+class Human(Workable, Eatable):
+    def work(self):
+        return "Human working"
+    def eat(self):
+        return "Human eating"
+```
+
 ### D - Dependency Inversion Principle
 
 Depend on abstractions, not concretions.
+
+```python
+from abc import ABC, abstractmethod
+
+class Database(ABC):
+    @abstractmethod
+    def save(self, data):
+        pass
+
+class MySQLDatabase(Database):
+    def save(self, data):
+        print(f"Saving to MySQL: {data}")
+
+class UserRepository:
+    def __init__(self, db: Database):  # Depends on abstraction
+        self.db = db
+
+    def save(self, user):
+        self.db.save(user)
+
+# Works with any database
+repo = UserRepository(MySQLDatabase())
+```
 
 ---
 
